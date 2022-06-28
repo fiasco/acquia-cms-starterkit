@@ -2,6 +2,8 @@
 
 namespace AcquiaCMS\Cli\Helpers\Process\Commands;
 
+use Acquia\DrupalEnvironmentDetector\AcquiaDrupalEnvironmentDetector;
+
 /**
  * A Drush class to execute drush commands.
  */
@@ -11,6 +13,9 @@ class Drush extends CommandBase {
    * {@inheritdoc}
    */
   public function getBaseCommand() :string {
+    if (AcquiaDrupalEnvironmentDetector::isAhEnv()) {
+      return '/usr/local/bin/drush9';
+    }
     return './vendor/bin/drush';
   }
 
